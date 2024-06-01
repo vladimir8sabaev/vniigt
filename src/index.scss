@@ -55,3 +55,41 @@ th {
 .error {
   border: 2px solid red;
 }
+
+.primary_btn {
+  cursor: pointer;
+  display: flex;
+  width: 220px;
+  padding: 12px 16px;
+  justify-content: center;
+  border-radius: 16px;
+  border: 2px solid #272525;
+  background-color: transparent;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 28px;
+  color: #272525;
+
+  transition: background-color 300ms linear;
+
+  &:hover {
+    color: white;
+    background-color: #272525;
+  }
+
+  &:disabled {
+    cursor: default;
+    color: gray;
+
+    &:hover {
+      background-color: transparent;
+    }
+  }
+}
+
+.current-table {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+}
