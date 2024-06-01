@@ -8,12 +8,9 @@ export const TrainTable = () => {
 
   const trainsTableRows = useMemo(() => {
     return trains.map((train) => {
+      const { description, name } = train;
       return (
-        <TrainsTableRow
-          key={train.name}
-          name={train.name}
-          description={train.description}
-        />
+        <TrainsTableRow key={name} name={name} description={description} />
       );
     });
   }, [trains]);

@@ -1,41 +1,41 @@
+import { memo } from 'react';
 import { CurrentTrainTableCell } from '../CurrentTrainTableCell/CurrentTrainTableCell';
-import { Dispatch, SetStateAction } from 'react';
 
 export interface ICurrentTrainTableRowProps {
   speed: number;
   force: number;
   engineAmperage: number;
   index: number;
-  setIsDisabled: Dispatch<SetStateAction<boolean>>;
+  handleDisable: (value: boolean) => void;
 }
 
-export const CurrentTrainTableRow = ({
+export const CurrentTrainTableRow = memo(function ({
   engineAmperage,
   force,
   speed,
-  setIsDisabled,
+  handleDisable,
   index,
-}: ICurrentTrainTableRowProps) => {
+}: ICurrentTrainTableRowProps) {
   return (
     <tr>
       <CurrentTrainTableCell
         index={index}
-        setIsDisabled={setIsDisabled}
+        handleDisable={handleDisable}
         type="engineAmperage"
         initialValue={'' + engineAmperage}
       />
       <CurrentTrainTableCell
         index={index}
-        setIsDisabled={setIsDisabled}
+        handleDisable={handleDisable}
         type="force"
         initialValue={'' + force}
       />
       <CurrentTrainTableCell
         index={index}
-        setIsDisabled={setIsDisabled}
+        handleDisable={handleDisable}
         type="speed"
         initialValue={'' + speed}
       />
     </tr>
   );
-};
+});

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { currentTrainSelector } from '../../store/current-train/current-train-selectors';
 import { useAppSelector } from '../../store/store';
 import { getTrainByName } from '../../store/train/trains-selectors';
@@ -10,12 +10,16 @@ export const CurrentTrainTable = () => {
   const currentTrainName = useAppSelector(currentTrainSelector);
   const currentTrain = useAppSelector(getTrainByName(currentTrainName));
 
+  const handleDisable = useCallback((value: boolean) => {
+    setIsDisabled(value);
+  }, []);
+
   const currentTrainSpecs = currentTrain.characteristics.map((row, index) => {
     const uniqueKey = row.speed + row.force + row.engineAmperage;
     return (
       <CurrentTrainTableRow
         index={index}
-        setIsDisabled={setIsDisabled}
+        handleDisable={handleDisable}
         key={uniqueKey}
         {...row}
       />

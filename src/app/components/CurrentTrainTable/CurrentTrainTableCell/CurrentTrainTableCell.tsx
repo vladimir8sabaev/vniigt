@@ -1,11 +1,4 @@
-import {
-  ChangeEvent,
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { ChangeEvent, memo, useEffect, useRef, useState } from 'react';
 import styles from './CurrentTrainTableCell.module.scss';
 import clsx from 'clsx';
 import { useAppDispatch, useAppSelector } from '../../../store/store';
@@ -17,15 +10,15 @@ export interface ICurrentTrainTableCellProps {
   initialValue: string;
   type: 'speed' | 'force' | 'engineAmperage';
   index: number;
-  setIsDisabled: Dispatch<SetStateAction<boolean>>;
+  handleDisable: (value: boolean) => void;
 }
 
-export const CurrentTrainTableCell = ({
+export const CurrentTrainTableCell = memo(function ({
   initialValue,
   type,
-  setIsDisabled,
+  handleDisable,
   index,
-}: ICurrentTrainTableCellProps) => {
+}: ICurrentTrainTableCellProps) {
   const [value, setValue] = useState<string>(initialValue);
   const [error, setError] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -36,7 +29,7 @@ export const CurrentTrainTableCell = ({
 
   useEffect(() => {
     const errors = document.querySelectorAll('.error');
-    setIsDisabled(errors.length > 0);
+    handleDisable(errors.length > 0);
   }, [value]);
 
   const getValidationPattern = (): RegExp => {
@@ -62,15 +55,15 @@ export const CurrentTrainTableCell = ({
   };
 
   const handleBlur = () => {
-    if (error) {
+    const value = inputRef.current!.value;
+
+    if (error || value === initialValue) {
       return;
     }
 
-    const value = +inputRef.current!.value;
-
     const updatedSpec = {
       ...currentTrain.characteristics[index],
-      [type]: value,
+      [type]: +value,
     };
 
     dispatch(
@@ -94,4 +87,4 @@ export const CurrentTrainTableCell = ({
       />
     </td>
   );
-};
+});
