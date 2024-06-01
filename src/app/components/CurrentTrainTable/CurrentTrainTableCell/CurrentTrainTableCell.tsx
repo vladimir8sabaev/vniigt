@@ -34,10 +34,10 @@ export const CurrentTrainTableCell = memo(function ({
 
   const getValidationPattern = (): RegExp => {
     switch (type) {
-      case 'speed':
+      case 'engineAmperage':
         return new RegExp(/^[1-9][0-9]*$/);
       case 'force':
-        return new RegExp(/^[+]?(?:\d*[.]?\d+)$/);
+        return new RegExp(/^(?!0*(?:\.0+)?$)(\d+)(\.\d+)?$/);
       default:
         return new RegExp(/^[0-9]+$/);
     }

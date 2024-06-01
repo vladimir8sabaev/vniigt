@@ -41,12 +41,13 @@ export const CurrentTrainTable = () => {
   return currentTrainName ? (
     <div className="current-table">
       <table className="table">
+        <caption className="table_title">Характеристики</caption>
         <caption className="table_title">{currentTrainName}</caption>
         <thead>
           <tr className="row_header">
-            <th scope="col">Ток двигателя</th>
-            <th scope="col">Сила тяги</th>
-            <th scope="col">Скорость</th>
+            <th scope="col">Ток двигателя, А</th>
+            <th scope="col">Сила тяги, кН</th>
+            <th scope="col">Скорость, км/ч</th>
           </tr>
         </thead>
         <tbody>{currentTrainSpecs}</tbody>
